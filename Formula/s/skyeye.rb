@@ -26,11 +26,10 @@ class Skyeye < Formula
     system "make", "skyeye"
     bin.install "skyeye"
     doc.install Dir["docs/*.md"]
-    if File.exist?(etc/"skyeye/config.yaml")
-      pkgetc.install "config.yaml" => "config.yaml.default"
-    else
+    if not File.exist?(pkgetc/"config.yaml")
       pkgetc.install "config.yaml"
     end
+    pkgetc.install "config.yaml" => "config.yaml.default"
     resource("ggml-small.en.bin").stage do
       opt_prefix("models").install  "ggml-small.en.bin"
     end
