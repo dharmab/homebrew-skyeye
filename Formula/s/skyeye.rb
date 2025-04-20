@@ -5,7 +5,7 @@ class Skyeye < Formula
   license "MIT"
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
-  revision 3
+  revision 4
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build
@@ -32,7 +32,7 @@ class Skyeye < Formula
       pkgetc.install "config.yaml"
     end
     resource("ggml-small.en.bin").stage do
-      optprefix("models").install  "ggml-small.en.bin"
+      opt_prefix("models").install  "ggml-small.en.bin"
     end
   end
 
@@ -52,10 +52,10 @@ class Skyeye < Formula
   def caveats
     <<~EOS
       A recommended Whisper model is installed at:
-        #{optprefix}/models/ggml-small.en.bin
+        #{opt_prefix}/models/ggml-small.en.bin
 
       You can set the model path in #{pkgetc}/config.yaml:
-        whisper-model: "#{optprefix}/models/ggml-small.en.bin"
+        whisper-model: "#{opt_prefix}/models/ggml-small.en.bin"
     EOS
   end
 end
