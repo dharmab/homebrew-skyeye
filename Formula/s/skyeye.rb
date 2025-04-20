@@ -5,12 +5,18 @@ class Skyeye < Formula
   license "MIT"
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
+  option "with-whisper", "Download a Whisper model for local speech recognition"
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build
   depends_on "libsoxr"
   depends_on "llvm" # Explicit depdenency on Homebrew LLVM due to runtime dependency on OpenMP
   depends_on "opus"
+
+  resource "ggml-small.en.bin" do
+    url "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.en.bin?download=true"
+    sha256 "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d"
+  end
 
   def install
     ENV["PATH"] = "#{HOMEBREW_PREFIX}/bin:#{ENV["PATH"]}"
@@ -21,9 +27,14 @@ class Skyeye < Formula
     bin.install "skyeye"
     doc.install Dir["docs/*.md"]
     if File.exist?(etc/"skyeye/config.yaml")
-      (etc/"skyeye").install "config.yaml" => "config.yaml.default"
+      pkgetc.install "config.yaml" => "config.yaml.default"
     else
-      (etc/"skyeye").install "config.yaml"
+      pkgetc.install "config.yaml"
+    end
+    if build.with? "whisper"
+      resource("ggml-small.en.bin").stage do
+        optprefix("models").install  "ggml-small.en.bin"
+      end
     end
   end
 
@@ -38,5 +49,18 @@ class Skyeye < Formula
     log_path var/"log/skyeye.log"
     error_log_path var/"log/skyeye.log"
     restart_delay 60
+  end
+
+  def caveats
+    <<~EOS
+      If you want to use local speech recognition, you can download a recommended Whisper model with:
+        brew install --with-whisper skyeye
+
+      The model will be installed to:
+        #{optprefix}/models/ggml-small.en.bin
+
+      You can set the model path in #{pkgetc}/config.yaml:
+        whisper-model: "#{optprefix}/models/ggml-small.en.bin"
+    EOS
   end
 end
