@@ -5,6 +5,7 @@ class Skyeye < Formula
   license "MIT"
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
+  revision 1
   option "with-whisper", "Download a Whisper model for local speech recognition"
 
   depends_on "go" => :build
