@@ -5,7 +5,7 @@ class Skyeye < Formula
   license "MIT"
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
-  revision 4
+  revision 5
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build
@@ -24,14 +24,16 @@ class Skyeye < Formula
     ENV["CXX"] = Formula["llvm"].opt_bin/"clang++"
     ENV.deparallelize # libwhisper.a build breaks without this for some reason?
     system "make", "skyeye"
+
     bin.install "skyeye"
+    resource("ggml-small.en.bin").stage do
+      (opt_prefix/"models").install "ggml-small.en.bin"
+    end
     doc.install Dir["docs/*.md"]
+
+    pkgetc.install "config.yaml" => "config.yaml.default"
     if not File.exist?(pkgetc/"config.yaml")
       pkgetc.install "config.yaml"
-    end
-    pkgetc.install "config.yaml" => "config.yaml.default"
-    resource("ggml-small.en.bin").stage do
-      opt_prefix("models").install  "ggml-small.en.bin"
     end
   end
 
