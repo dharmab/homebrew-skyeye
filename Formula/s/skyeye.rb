@@ -5,7 +5,7 @@ class Skyeye < Formula
   license "MIT"
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
-  revision 11
+  revision 12
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build
