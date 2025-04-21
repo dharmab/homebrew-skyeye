@@ -5,7 +5,7 @@ class Skyeye < Formula
   license "MIT"
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
-  revision 9
+  revision 11
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build
@@ -31,8 +31,9 @@ class Skyeye < Formula
     end
     doc.install Dir["docs/*.md"]
 
-    pkgetc.install "config.yaml" => "config.yaml.default"
-    if not File.exist?(pkgetc/"config.yaml")
+    if File.exist?(pkgetc/"config.yaml")
+      pkgetc.install "config.yaml" => "config.yaml.default"
+    else
       pkgetc.install "config.yaml"
     end
   end
