@@ -3,6 +3,7 @@ class Skyeye < Formula
   homepage "https://github.com/dharmab/skyeye"
   url "https://github.com/dharmab/skyeye.git", tag: "v1.4.3", revision: "7b5ef973f8c1d337dbeb1c3bf81d2d4f1579013d"
   license "MIT"
+  revision 1
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
 
@@ -56,7 +57,9 @@ class Skyeye < Formula
         #{HOMEBREW_PREFIX}/share/skyeye/models/ggml-small.en.bin
 
       You can set the model path in #{pkgetc}/config.yaml:
-        whisper-model: #{HOMEBREW_PREFIX}/share/skyeye/models/ggml-small.en.bin
+        whisper-model: /path/to/custom/model.en.bin
+
+      Models saved in #{HOMEBREW_PREFIX}/share/skyeye/models/ may be deleted if SkyEye is uninstalled.
     EOS
   end
 end
