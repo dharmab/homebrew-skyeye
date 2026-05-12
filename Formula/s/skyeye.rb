@@ -5,9 +5,11 @@ class Skyeye < Formula
   license "MIT"
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
+  revision 2
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build
+  depends_on "cmake" => :build
   depends_on "libsoxr"
   depends_on "llvm" # Explicit dependency on Homebrew LLVM due to runtime dependency on OpenMP
   depends_on "opus"
