@@ -1,7 +1,7 @@
 class Skyeye < Formula
   desc "AI Powered GCI Bot for DCS"
   homepage "https://github.com/dharmab/skyeye"
-  url "https://github.com/dharmab/skyeye.git", tag: "v1.9.2", revision: "503faae7ae8e0877ffdd6db033d9cf9ead8f4745"
+  url "https://github.com/dharmab/skyeye.git", tag: "v1.9.3", revision: "a26d8461742bd6b837dde199db3faaac2ae3dce1"
   license "MIT"
   head "https://github.com/dharmab/skyeye.git",
     branch: "main"
